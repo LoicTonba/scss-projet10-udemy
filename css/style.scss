@@ -1,0 +1,138 @@
+@use "sass:math";
+
+$color: #2997ab;
+$font: 'Open Sans', Arial, sans-serif;
+$p: 15px;
+
+body{
+    font: $p $font;
+}
+
+header{
+    background-color: $color;
+}
+
+h1{
+    font-size: 5 * $p;
+}
+
+@if $p == 25px{
+    h1{
+        color: red;
+    }
+}@else{
+    h1{
+        color: blue;
+    }
+}
+
+@for $i from 1 through 5{
+    h#{$i}{
+        font-size: math.div(5 * $p, $i);
+    }
+}
+
+$list: MacBook, pc-amazon, Surface-group;
+
+@each $i in $list{
+    .#{$i}{
+        height: 200px;
+        width: 600px;
+        background: url("../images/#{$i}.PNG");
+    }
+}
+
+$value: 160;
+
+@while $value > 100{
+    .width-#{$value}{
+        margin-top: 10px;
+        width: #{$value}px;
+        background: lighten(#2997ab, 10%);
+        height: 20px;
+    }
+    $value: $value - 20;
+}
+
+@function add1000($value){
+    @return $value + 1000
+}
+
+.box{
+    margin-top: 10px;
+    background: red;
+    height: 100px;
+    width: add1000(100px);
+}
+
+header{
+    ul{
+
+        background-color: darken(#2997ab, 30%);
+        padding: 15px;
+        li{
+            a{
+                color: white;
+            }
+
+            list-style: none;
+            display: inline;
+        }
+    }
+}
+
+@import '_color';
+
+.sidebar{
+    background-color: $importedColor1;
+    color: $importedColor2;
+    box-shadow: 0 0 10px $importedColor3;
+    padding: 25px;
+    width: 300px;
+    display: inline-block;
+}
+
+@mixin box($padding, $margin, $bg-color: #2997ab, $text-color: white){
+    background: $bg-color;
+    color: $text-color;
+    padding: $padding;
+    margin: $margin;
+    text-align: center;
+    display: inline-block;
+}
+
+.custom-box-1{
+    @include box(50px, 10px);
+}
+
+.custom-box-2{
+    @include box(50px, 10px,black);
+}
+
+.custom-box-3{
+    @include box(50px, 10px, coral, black);
+}
+
+%button{
+    padding: 15px;
+    width: 300px;
+    font-size: 18px;
+    background: #2997ab;
+    color: white;
+    border: none;
+}
+
+.button-orange{
+    @extend %button;
+    background: coral;
+}
+
+.button-green{
+    @extend %button;
+    background: darkgreen;
+}
+.copyright{
+    text-align: center;
+    background-color: lighten($color: #2997ab, 10%);
+    box-shadow: 0 0 10px rgba($color: #4e4a4a, $alpha: 1.0);
+}
